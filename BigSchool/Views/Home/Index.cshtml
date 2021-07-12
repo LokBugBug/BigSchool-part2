@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="jumbotron">
+    <h1>Chào Mừng Bạn Đến Thế Gioi Của Lok Bug Bug</h1>
+    <p class="lead">Giáo Trình Để Thành Main Thần Sứ</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+<div class="row">
+    <ul class="course">
+        @foreach(var course in Model)
+            {
+            <li>
+                <div class="date">
+                    <div class="month">
+                        @course.DateTime.ToString("MM")
+                    </div>
+                    <div class="day">
+                        @course.DateTime.ToString("dd")
+                    </div>
+                </div>
+                <div class="details">
+                    <span class="lecture">
+                        @course.Name
+                    </span>
+                    <span class="category">
+                        @course.Category.Name
+                    </span>
+                    <button data-course-id="@course.Id" class="btn btn-default btn-sm js-tongle-attendance">Going?</button>
+                </div>
+            </li>
+        <li>
+            @course.DateTime.ToString("dd/MM/yyyy HH:mm")- @course.Name- @course.Category.Name
+        </li>
+            }
+    </ul>
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $(".js-tongle-attendance").click(function (e) {
+                    var button = $(e.target);
+                    $.post("/api/attendances", { Id: button.attr("data-course-id") })
+                        .done(function () {
+                            alert("Register course sucessfully!")
+                            button
+                                .removeClass("btn-default")
+                                .addClass("btn-info")
+                                .text("Going");
+                        }).fail(function () {
+                            alert("SomeThing fail");
+                        });
+                });
+            });
+        </script>
+        }
+</div>
+
