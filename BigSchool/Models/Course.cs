@@ -1,10 +1,16 @@
 namespace BigSchool.Models
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.VisualBasic.ApplicationServices;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
 
     [Table("Course")]
     public partial class Course
@@ -24,7 +30,6 @@ namespace BigSchool.Models
         [Required]
         [StringLength(255)]
         public string Place { get; set; }
-       
 
         public DateTime DateTime { get; set; }
 
@@ -38,6 +43,10 @@ namespace BigSchool.Models
 
         public string Name;
         public string LetureName;
+        public bool isLogin = false;
+        public bool isShowGoing = false;
+        public bool isShowFollow = false;
     }
    
+
 }
